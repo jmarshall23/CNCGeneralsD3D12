@@ -1,0 +1,55 @@
+cmake_minimum_required(VERSION 3.16)
+
+project(bridge LANGUAGES C CXX)
+
+set(D3D12SHIM_SOURCES
+    d3d8.cpp
+    gl_d3d12raylight.cpp
+    gl_d3d12shim.cpp
+    gl_d3d12wgl.cpp
+)
+
+set(D3D12SHIM_HEADERS
+    d3d8_bridge.h
+    opengl.h
+)
+
+add_library(bridge STATIC
+    ${D3D12SHIM_SOURCES}
+    ${D3D12SHIM_HEADERS}
+ "d3d8x.cpp" "d3d8_guids.cpp" "miles_openal.cpp" "win32.cpp")
+
+target_include_directories(bridge
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_compile_features(bridge PUBLIC cxx_std_17)
+set_target_properties(bridge PROPERTIES
+    CXX_EXTENSIONS OFF
+)
+
+target_link_directories(bridge PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+if (WIN32)
+    target_compile_definitions(bridge PRIVATE
+        WIN32
+        _WINDOWS
+        NOMINMAX
+    )
+
+    target_link_libraries(bridge
+        PUBLIC
+            d3d12
+            dxgi
+            dxguid
+            openal32
+            user32
+            gdi32
+    )
+endif()
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES
+    ${D3D12SHIM_SOURCES}
+    ${D3D12SHIM_HEADERS}
+) 
