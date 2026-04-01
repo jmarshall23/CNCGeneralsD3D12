@@ -89,13 +89,13 @@ AsciiString Version::getAsciiVersion() const
 		}
 		else
 		{
-			AsciiString user = getAsciiBuildUserOrGitCommitAuthorName();
-			// User name requires at least 2 characters
-			if (user.getLength() < 2)
-				user.concat("xx");
+          AsciiString user = getAsciiBuildUserOrGitCommitAuthorName();
+          // User name requires at least 2 characters
+          if (user.getLength() < 2)
+            user.concat("xx");
 
-			version.format("%d.%d.%d.%d%c%c", m_major, m_minor, m_buildNum, m_localBuildNum,
-				user.getCharAt(0), user.getCharAt(1));
+          version.format("%d.%d.%d.%d%c%c", m_major, m_minor, m_buildNum, m_localBuildNum,
+            user.getCharAt(0), user.getCharAt(1));
 		}
 	}
 	else

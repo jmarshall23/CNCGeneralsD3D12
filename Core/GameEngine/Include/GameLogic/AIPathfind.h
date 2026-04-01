@@ -883,8 +883,8 @@ protected:
 
 private:
 	/// This uses WAY too much memory.  Should at least be array of pointers to cells w/ many fewer cells
-	PathfindCell *m_blockOfMapCells;		///< Pathfinding map - contains iconic representation of the map
-	PathfindCell **m_map;		///< Pathfinding map indexes - contains matrix indexing into the map.
+	PathfindCell *m_blockOfMapCells = NULL;		///< Pathfinding map - contains iconic representation of the map
+	PathfindCell **m_map = NULL;		///< Pathfinding map indexes - contains matrix indexing into the map.
 	IRegion2D m_extent;														///< Grid extent limits
 	IRegion2D m_logicalExtent;										///< Logical grid extent limits
 
@@ -897,7 +897,7 @@ private:
 	Int m_frameToShowObstacles;										///< Time to redraw obstacles.  For debug output.
 
 	Coord3D debugPathPos;													///< Used for visual debugging
-	Path *debugPath;															///< Used for visual debugging
+	Path *debugPath = NULL;															///< Used for visual debugging
 
 	ObjectID m_ignoreObstacleID;									///< Ignore the given obstacle
 

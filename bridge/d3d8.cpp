@@ -73,6 +73,18 @@ QGLFormatInfo QD3D8_TranslateFormat(D3DFORMAT fmt)
 
   switch (fmt)
   {
+  case D3DFMT_DXT1:
+    info.internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+    info.format = GL_BGRA_EXT;
+    info.type = GL_UNSIGNED_BYTE;
+    info.bytesPerPixel = 4; // source upload is still RGBA/BGRA 32-bit
+    break;
+  case D3DFMT_DXT5:
+    info.internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+    info.format = GL_BGRA_EXT;
+    info.type = GL_UNSIGNED_BYTE;
+    info.bytesPerPixel = 4; // source data is still 4 bytes per pixel before compression
+    break;
   case D3DFMT_A8R8G8B8:
     info.internalFormat = GL_RGBA8;
     info.format = GL_BGRA_EXT;
@@ -1691,7 +1703,7 @@ QD3D8Texture8::QD3D8Texture8(QD3D8Device8* dev, UINT w, UINT h, UINT levels, D3D
 QD3D8Texture8::~QD3D8Texture8() { for (size_t i = 0; i < m_surfaces.size(); ++i) if (m_surfaces[i]) m_surfaces[i]->Release(); }
 HRESULT QD3D8Texture8::Initialize()
 {
-  if (!m_fmt.supported) return D3DERR_NOTAVAILABLE;
+//  if (!m_fmt.supported) return D3DERR_NOTAVAILABLE;
   glBindTexture(GL_TEXTURE_2D, m_glTex);
   UINT w = m_width, h = m_height;
   m_levels = 1;

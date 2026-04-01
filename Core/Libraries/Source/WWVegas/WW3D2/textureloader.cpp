@@ -1217,12 +1217,11 @@ bool TextureLoadTaskClass::Load()
 	WWASSERT(Peek_D3D_Texture());
 
 	bool loaded = false;
-	// jmarshall - dds fix
+
 	// if allowed, try to load compressed mipmaps
-	//if (Texture->Is_Compression_Allowed()) {
-	//	loaded = Load_Compressed_Mipmap();
-	//}
-	// jmarshall end
+	if (Texture->Is_Compression_Allowed()) {
+		loaded = Load_Compressed_Mipmap();
+	}
 
 	// otherwise, load uncompressed mipmaps
 	if (!loaded) {
@@ -1457,7 +1456,9 @@ bool TextureLoadTaskClass::Begin_Compressed_Load()
 
 	Width		= width;
 	Height	= height;
-	Format	= Get_Valid_Texture_Format(orig_format, Texture->Is_Compression_Allowed());
+
+	Format = WW3D_FORMAT_A8R8G8B8; // Get_Valid_Texture_Format(orig_format, Texture->Is_Compression_Allowed());
+
 	Reduction = reduction;
 
 

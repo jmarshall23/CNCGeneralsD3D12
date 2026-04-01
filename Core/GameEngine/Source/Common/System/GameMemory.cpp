@@ -109,7 +109,6 @@ static void* sysAllocateDoNotZero(Int numBytes)
   if (!h)
     throw ERROR_OUT_OF_MEMORY;
 
-  // Always zero the entire allocation so both header and returned payload start clean.
   ::memset(h, 0, total);
 
   h->size = (size_t)numBytes;
@@ -133,7 +132,6 @@ static void sysFree(void* p)
 
   OsAllocHeader* h = ((OsAllocHeader*)p) - 1;
 #ifdef MEMORYPOOL_DEBUG
-  memset32(p, GARBAGE_FILL_VALUE, (Int)h->size);
   theTotalSystemAllocationInBytes -= (Int)(sizeof(OsAllocHeader) + h->size);
 #endif
   ::free(h);
@@ -293,8 +291,6 @@ void* MemoryPool::allocateBlockDoNotZeroImplementation(DECLARE_LITERALSTRING_ARG
   if (m_peakUsedBlocksInPool < m_usedBlocksInPool)
     m_peakUsedBlocksInPool = m_usedBlocksInPool;
 
-  // Even this path must return zeroed memory to the caller.
-  ::memset(p, 0, m_allocationSize);
   return p;
 }
 
@@ -452,15 +448,12 @@ void* DynamicMemoryAllocator::allocateBytesDoNotZero(Int numBytes, const char* d
 
   ++m_usedBlocksInDma;
 
-  // Force zeroed returned memory on all outward-facing allocation paths.
-  ::memset(p, 0, numBytes > 0 ? numBytes : 1);
   return p;
 }
 
 void* DynamicMemoryAllocator::allocateBytes(Int numBytes, const char* debugLiteralTagString)
 {
   void* p = allocateBytesDoNotZero(numBytes, debugLiteralTagString);
-  ::memset(p, 0, numBytes);
   return p;
 }
 

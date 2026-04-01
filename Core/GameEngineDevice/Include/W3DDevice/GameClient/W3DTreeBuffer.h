@@ -123,8 +123,8 @@ typedef struct {
 } TTree;
 
 /// The individual data for a tree type.
-typedef struct {
-	MeshClass * m_mesh;			///< Mesh for this kind of tree.
+struct TTreeType {
+	MeshClass * m_mesh = NULL;			///< Mesh for this kind of tree.
 	SphereClass m_bounds;		///< Bounding boxes for the base tree models.
 	const W3DTreeDrawModuleData *m_data;
 	ICoord2D		m_textureOrigin; ///< Texture origin in the mega texture.
@@ -136,7 +136,7 @@ typedef struct {
 	Real				m_shadowSize; ///< Shadow radius.
 	Bool				m_doShadow; ///< Draw shadow.
 
-} TTreeType;
+};
 
 //
 // W3DTreeBuffer: Draw buffer for the trees.

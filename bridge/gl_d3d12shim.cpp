@@ -792,11 +792,11 @@ float4 BuildTexturedColor(VSOut i)
         outColor = ApplyTexEnv(outColor, tex0, gTexEnvMode0);
     }
 
-    if (gUseTex1 > 0.5)
-    {
-        float4 tex1 = gTex1.Sample(gSamp1, uv1);
-        outColor = outColor * tex1;
-    }
+  //  if (gUseTex1 > 0.5)
+  //  {
+  //      float4 tex1 = gTex1.Sample(gSamp1, uv1);
+  //      outColor = outColor * tex1;
+  //  }
 
     outColor.xyz = ApplySoftwareRendererLook(outColor.xyz);
     outColor = ApplyFog(outColor, i.fogCoord);
@@ -1096,6 +1096,10 @@ static DXGI_FORMAT MapTextureFormat(GLenum format, GLenum type = GL_UNSIGNED_BYT
     break;
 
   case GL_RGBA:
+    if (type == GL_UNSIGNED_BYTE)
+      return DXGI_FORMAT_R8G8B8A8_UNORM;
+    break;
+
   case GL_BGRA_EXT:
     if (type == GL_UNSIGNED_SHORT_1_5_5_5_REV)
       return DXGI_FORMAT_B5G5R5A1_UNORM;
@@ -1290,11 +1294,11 @@ static UploadAlloc QD3D12_AllocUpload(UINT bytes, UINT alignment)
 static void QD3D12_CreateDevice()
 {
 #if defined(_DEBUG)
-    {
-        ComPtr<ID3D12Debug> debug;
-        if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debug))))
-            debug->EnableDebugLayer();
-    }
+   // {
+   //     ComPtr<ID3D12Debug> debug;
+   //     if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&debug))))
+   //         debug->EnableDebugLayer();
+   // }
 #endif
 
 QD3D12_CHECK(CreateDXGIFactory1(IID_PPV_ARGS(&g_gl.factory)));

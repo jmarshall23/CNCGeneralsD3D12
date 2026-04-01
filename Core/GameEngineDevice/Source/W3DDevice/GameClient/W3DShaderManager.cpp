@@ -2920,6 +2920,8 @@ enum GraphicsVenderID CPP_11(: Int)
 //=============================================================================
 ChipsetType W3DShaderManager::getChipset()
 {
+	return DC_GEFORCE2;
+#if 0
 	//check if globaldata has an override for current chipset
 	if (TheGlobalData && TheGlobalData->m_chipSetType != DC_UNKNOWN)
 		return (ChipsetType)TheGlobalData->m_chipSetType;
@@ -3004,6 +3006,7 @@ ChipsetType W3DShaderManager::getChipset()
 	}
 
 	return chip;
+#endif
 }
 
 //=============================================================================

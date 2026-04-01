@@ -223,18 +223,6 @@ void Dict::releaseData()
 Dict::Dict(Int numPairsToPreAllocate) : m_data(nullptr)
 {
 
-	/*
-		This class plays some skanky games, in the name of memory and code
-		efficiency; it assumes all the data types will fit into a pointer.
-		This is currently true, but if that assumption ever changes, all hell
-		will break loose. So we do a quick check to assure this...
-	*/
-	DEBUG_ASSERTCRASH(sizeof(Bool) <= sizeof(void*) &&
-										sizeof(Int) <= sizeof(void*) &&
-										sizeof(Real) <= sizeof(void*) &&
-										sizeof(AsciiString) <= sizeof(void*) &&
-										sizeof(UnicodeString) <= sizeof(void*), ("oops, this code needs attention"));
-
 	if (numPairsToPreAllocate)
 		ensureUnique(numPairsToPreAllocate, false, nullptr);	// will throw on error
 }

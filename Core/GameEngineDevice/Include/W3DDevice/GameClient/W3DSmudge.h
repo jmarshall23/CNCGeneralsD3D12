@@ -50,13 +50,13 @@ private:
 
 	enum { MAX_POINTS_PER_GROUP = 512 };
 
-	SmudgeGroupClass *m_smudgeGroup;							///< the point group that contains all of the particles
+	SmudgeGroupClass *m_smudgeGroup = NULL;							///< the point group that contains all of the particles
 	ShareBufferClass<Vector3> *m_posBuffer;			///< array of particle positions
 	ShareBufferClass<unsigned int> *m_RGBABuffer;		///< array of particle color and alpha
 	ShareBufferClass<float> *m_sizeBuffer;			///< array of particle sizes
 
-	TextureClass *m_backgroundTexture;
-	DX8IndexBufferClass	*m_indexBuffer;
+	TextureClass *m_backgroundTexture = NULL;
+	DX8IndexBufferClass	*m_indexBuffer = NULL;
 	Int m_backBufferWidth;
 	Int m_backBufferHeight;
 };

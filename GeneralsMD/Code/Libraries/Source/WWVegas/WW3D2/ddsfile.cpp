@@ -77,7 +77,6 @@ DDSFileClass::DDSFileClass(const char* name,unsigned reduction_factor)
 		return;
 	}
 	// Now, we read DDSURFACEDESC2 defining the compressed data
-    LegacyDDSURFACEDESC2 SurfaceDesc = {};
     LegacyDDSURFACEDESC2_32 SurfaceDesc32 = {};
 
     read_bytes = file->Read(&SurfaceDesc32, sizeof(SurfaceDesc32));
@@ -102,7 +101,7 @@ DDSFileClass::DDSFileClass(const char* name,unsigned reduction_factor)
     SurfaceDesc.Reserved = SurfaceDesc32.Reserved;
 
     // restore 32-bit stored pointer value as an integer-sized pointer
-    SurfaceDesc.Surface = reinterpret_cast<void*>((uintptr_t)SurfaceDesc32.Surface);
+    SurfaceDesc.Surface = NULL;
 
     SurfaceDesc.CKDestOverlay.ColorSpaceLowValue = SurfaceDesc32.CKDestOverlay.ColorSpaceLowValue;
     SurfaceDesc.CKDestOverlay.ColorSpaceHighValue = SurfaceDesc32.CKDestOverlay.ColorSpaceHighValue;

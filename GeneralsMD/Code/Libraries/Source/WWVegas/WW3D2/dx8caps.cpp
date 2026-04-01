@@ -1008,6 +1008,7 @@ bool DX8Caps::Is_Valid_Display_Format(int width, int height, WW3DFormat format)
 
 void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 {
+#if 0
 	if (VendorId==VENDOR_NVIDIA)
   {
 		if (SupportNPatches) {
@@ -1167,5 +1168,6 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 		DXLOG(("Disabling DOT3 on VMWare\r\n"));
 		SupportDot3 = false;
 	}
+#endif
 }
 

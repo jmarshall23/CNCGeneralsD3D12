@@ -185,7 +185,7 @@ void File::close()
 {
 	if( m_open )
 	{
-		setName( "<no file>" );
+		//setName( "<no file>" ); // jmarshall <-- this is slow. 
 		m_open = FALSE;
 		if ( m_deleteOnClose )
 		{
